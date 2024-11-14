@@ -1,5 +1,5 @@
 # Usamos una imagen base de Python
-FROM python:3.9-slim AS builder
+FROM python:3.9-alpine AS builder
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
@@ -7,9 +7,9 @@ WORKDIR /app
 # Copiar los requerimientos de la aplicación
 COPY src/requirements.txt .
 
-# Copiar el archivo requirements.txt y instalar dependencias
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -U langchain-community
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.txt && \
+		pip install -U langchain-community
 
 FROM builder
 
