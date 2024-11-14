@@ -15,6 +15,7 @@ FROM builder
 
 # Copiar el codigo de la aplicación
 COPY src/app.py /app/
+COPY src/.env /app/
 
 # Comando para ejecutar la aplicación
 CMD ["python", "app.py"]

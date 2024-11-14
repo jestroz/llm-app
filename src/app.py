@@ -1,11 +1,18 @@
 import requests
 from langchain.llms.base import LLM
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Carga las variables del archivo .env
 
 class OllamaLLM(LLM):
     def _call(self, prompt: str, stop=None):
+        # Obtener host y puerto desde variables de entorno
+        host = os.getenv("OLLAMA_HOST")
+        port = os.getenv("OLLAMA_PORT")
+        url = f"{host}:{port}/api/generate"
         # Llamada a la API local de Ollama
-        response = requests.post(
-            "http://192.168.100.35:7869/api/generate",
+        response = requests.post(url,
             json={
                 "model": "rustic",
                 "prompt": prompt,
